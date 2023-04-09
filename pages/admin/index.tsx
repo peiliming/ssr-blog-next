@@ -1,5 +1,7 @@
 import { NextPage } from 'next'
 import AdminNav from '@/components/AdminNav'
+// npm install react-icons --save
+// https://react-icons.github.io/react-icons/
 import { AiOutlineContacts, AiOutlineContainer, AiOutlineDashboard, AiOutlineMail, AiOutlineTeam } from 'react-icons/ai'
 
 interface Props {}

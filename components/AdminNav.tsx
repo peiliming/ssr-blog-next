@@ -1,10 +1,6 @@
-import { FC, useState, useRef } from 'react'
+import { FC, useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Logo from '@/Logo'
-// npm install react-icons --save
-// https://react-icons.github.io/react-icons/
-import { AiOutlineDashboard, AiOutlineContainer, AiOutlineTeam, AiOutlineMail } from 'react-icons/ai'
-import { GrDashboard } from 'react-icons/gr'
 import { IconType } from 'react-icons'
 import { RiMenuFoldFill, RiMenuUnfoldFill } from 'react-icons/ri'
 
@@ -18,17 +14,18 @@ interface Props {
 
 const NAV_OPEN_WIDTH = 'w-60'
 const NAV_CLOSE_WIDTH = 'w-12'
+const NAV_VISIBILITY = 'nav-visibility'
 
 const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
   const navRef = useRef<HTMLElement>(null)
   const [visible, setVisible] = useState(true)
 
-  const updateNavState = () => {
+  const toggleNav = (visibility: boolean) => {
     const { current: currentNav } = navRef  // const currentNav = navRef.current
     if(!currentNav) return
 
     const { classList } = currentNav
-    if(visible) {
+    if(visibility) {
       // navを隠す
       classList.remove(NAV_OPEN_WIDTH)   // if { classList } = currentNavをしなければ、 currentNav.classList.removeになる
       classList.add(NAV_CLOSE_WIDTH)
@@ -36,8 +33,26 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
       classList.add(NAV_OPEN_WIDTH)
       classList.remove(NAV_CLOSE_WIDTH)
     }
-    setVisible(!visible)
+
   }
+
+  const updateNavState = () => {
+    toggleNav(visible)
+    const newState = !visible
+    setVisible(newState)
+    localStorage.setItem(NAV_VISIBILITY, JSON.stringify(newState))
+  }
+
+  useEffect(() => {
+    const navState = localStorage.getItem(NAV_VISIBILITY)
+    if(navState !== null) {
+      const newState = JSON.parse(navState)
+      setVisible(newState)
+      toggleNav(!newState)
+    } else {
+      setVisible(true)
+    }
+  }, [])
 
   return (
     <nav ref={navRef} className='h-screen w-60 shadow-sm bg-secondary-light dark:bg-secondary-dark flex flex-col justify-between'>
