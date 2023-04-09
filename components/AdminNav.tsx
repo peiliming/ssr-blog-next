@@ -56,7 +56,8 @@ const AdminNav: FC<Props> = ({ navItems }): JSX.Element => {
 
   return (
     // transition-[property]: https://tailwindcss.com/docs/transition-property
-    <nav ref={navRef} className='h-screen w-60 shadow-sm bg-secondary-light dark:bg-secondary-dark flex flex-col justify-between transition-[wdith] overflow-hidden'>
+    <nav ref={navRef} className='h-screen w-60 shadow-sm bg-secondary-light dark:bg-secondary-dark
+    flex flex-col justify-between transition-[wdith] overflow-hidden sticky top-0'>
       <div>
         {/* logo */}
         <Link href='/admin'>
