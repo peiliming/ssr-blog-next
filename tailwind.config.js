@@ -21,6 +21,9 @@ module.exports = {
         },
         action: '#3b82f6',
       },
+      transitionProperty: {
+        width: 'width'
+      }
       // backgroundImage: {
       //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       //   'gradient-conic':
