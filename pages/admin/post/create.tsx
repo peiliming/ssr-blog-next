@@ -5,7 +5,9 @@ interface Props {}
 
 const Create: NextPage<Props> = () => {
   return (
-    <Editor />
+    <div className='max-w-4xl mx-auto'>
+      <Editor />
+    </div>
   )
 }
 

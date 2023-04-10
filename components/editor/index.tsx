@@ -8,7 +8,15 @@ interface Props {}
 const Editor: FC<Props> = (props):JSX.Element => {
   const editor = useEditor({extensions: [StarterKit]})
   return (
-    <EditorContent editor={editor} />
+    <div> 
+      <button onClick={() => {
+        if(!editor) return
+        {/* // https://tiptap.dev/api/commands */}
+        {/* // https://tiptap.dev/api/extensions/bubble-menu */}
+        editor?.chain().focus().toggleBold().run()
+      }}>Bold</button>
+      <EditorContent editor={editor} />
+    </div>
   )
 }
 
