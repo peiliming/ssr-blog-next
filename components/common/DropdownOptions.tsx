@@ -14,7 +14,7 @@ const DropdownOptions: FC<Props> = ({options, head}): JSX.Element => {
   return (
     <button 
       onBlur={() => setShowOptions(false)}
-      onClick={() => setShowOptions(!showOptions)}
+      onMouseDown={() => setShowOptions(!showOptions)}
       className='relative'>
       {head}
       {showOptions && (
@@ -22,7 +22,7 @@ const DropdownOptions: FC<Props> = ({options, head}): JSX.Element => {
       dark:border-primary rounded text-left bg-primary dark:bg-primary-dark'>
         <ul className='p-3 space-y-3'>
           {options.map(({label, onClick}, index) => {
-            return <li key={label + index} onClick={onClick}>{label}</li>
+            return <li key={label + index} onMouseDown={onClick}>{label}</li>
           })}
         </ul>
       </div> )}
