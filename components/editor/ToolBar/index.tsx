@@ -3,6 +3,9 @@ import { Editor } from '@tiptap/react'
 import { FC } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
 import { getFocusedEditor } from '@/components/editor/EditorUtils'
+// https://react-icons.github.io/react-icons/icons?name=bs
+import { BsTypeBold } from 'react-icons/bs'
+import Button from '@/components/editor/ToolBar/Button'
 
 interface Props {
   editor: Editor | null
@@ -47,12 +50,11 @@ const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
   }
   return (
     <div>
-      {/* <select name='' id=''>
+      <DropdownOptions options={options} head={<Head />}/>
 
-      </select> */}
-      <DropdownOptions options={options}
-        head={<Head />}
-      />
+      <Button>
+        <BsTypeBold />
+      </Button>
     </div>
   )
 }
