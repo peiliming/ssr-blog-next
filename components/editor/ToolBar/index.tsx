@@ -4,7 +4,21 @@ import { FC } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
 import { getFocusedEditor } from '@/components/editor/EditorUtils'
 // https://react-icons.github.io/react-icons/icons?name=bs
-import { BsTypeBold } from 'react-icons/bs'
+import { 
+  BsTypeStrikethrough,
+  BsBraces,
+  BsCode,
+  BsListOl,
+  BsListUl,
+  BsTypeBold,
+  BsTypeItalic,
+  BsTypeUnderline,
+  BsImageFill,
+  BsLink45Deg,
+  BsYoutube,
+} from 'react-icons/bs'
+import { RiDoubleQuotesL } from 'react-icons/ri'
+
 import Button from '@/components/editor/ToolBar/Button'
 
 interface Props {
@@ -49,12 +63,92 @@ const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
     )
   }
   return (
-    <div>
+    <div className='flex items-center'>
       <DropdownOptions options={options} head={<Head />}/>
+      {/* 区切り */}
+      <div className='h-4 w-[1px] bg-secondary-dark dark:bg-secondary-light mx-8' />
+      <div className='flex items-center space-x-3'>
+        <Button 
+          active={editor.isActive('bold')}
+          // className={editor.isActive('bold') ? 'is-active' : ''}
+          onClick={() => getFocusedEditor(editor).toggleBold().run()}
+        >
+          <BsTypeBold />
+        </Button>
 
-      <Button>
-        <BsTypeBold />
-      </Button>
+        <Button
+          active={editor.isActive('italic')}
+          onClick={() => getFocusedEditor(editor).toggleItalic().run()}
+        >
+          <BsTypeItalic />
+        </Button>
+
+        <Button
+          active={editor.isActive('underline')}
+          onClick={() => getFocusedEditor(editor).toggleUnderline().run()}
+        >
+          <BsTypeUnderline />
+        </Button>
+
+        <Button
+          active={editor.isActive('strike')}
+          onClick={() => getFocusedEditor(editor).toggleStrike().run()}
+        >
+          <BsTypeStrikethrough />
+        </Button>
+      </div>
+      {/* 区切り */}
+      <div className='h-4 w-[1px] bg-secondary-dark dark:bg-secondary-light mx-8' />
+      <div className='flex items-center space-x-3'>
+        <Button
+          active={editor.isActive('blockquote')}
+          onClick={() => getFocusedEditor(editor).toggleBlockquote().run()}
+        >
+          <RiDoubleQuotesL />
+        </Button>
+
+        <Button
+          active={editor.isActive('code')}
+          onClick={() => getFocusedEditor(editor).toggleCode().run()}
+        >
+          <BsCode />
+        </Button>
+
+        <Button
+          active={editor.isActive('codeBlock')}
+          onClick={() => getFocusedEditor(editor).toggleCodeBlock().run()}
+        >
+          <BsBraces />
+        </Button>
+
+        <Button>
+          <BsLink45Deg />
+        </Button>
+
+        <Button
+          active={editor.isActive('orderedList')}
+          onClick={() => getFocusedEditor(editor).toggleOrderedList().run()}
+        >
+          <BsListOl />
+        </Button>
+
+        <Button
+          active={editor.isActive('bulletList')}
+          onClick={() => getFocusedEditor(editor).toggleBulletList().run()}
+        >
+          <BsListUl />
+        </Button>
+      </div>
+      <div className='h-4 w-[1px] bg-secondary-dark dark:bg-secondary-light mx-8' />
+      <div className='flex items-center space-x-3'>
+        <Button>
+          <BsYoutube />
+        </Button>
+
+        <Button>
+          <BsImageFill />
+        </Button>
+      </div>
     </div>
   )
 }
