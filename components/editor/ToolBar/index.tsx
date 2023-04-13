@@ -4,7 +4,21 @@ import { FC } from 'react'
 import { AiFillCaretDown } from 'react-icons/ai'
 import { getFocusedEditor } from '@/components/editor/EditorUtils'
 // https://react-icons.github.io/react-icons/icons?name=bs
-import { BsTypeBold } from 'react-icons/bs'
+import { 
+  BsTypeStrikethrough,
+  BsBraces,
+  BsCode,
+  BsListOl,
+  BsListUl,
+  BsTypeBold,
+  BsTypeItalic,
+  BsTypeUnderline,
+  BsImageFill,
+  BsLink45Deg,
+  BsYoutube,
+} from 'react-icons/bs'
+import { RiDoubleQuotesL } from 'react-icons/ri'
+
 import Button from '@/components/editor/ToolBar/Button'
 
 interface Props {
@@ -49,12 +63,64 @@ const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
     )
   }
   return (
-    <div>
+    <div className='flex items-center'>
       <DropdownOptions options={options} head={<Head />}/>
+      {/* 区切り */}
+      <div className='h-4 w-[1px] bg-secondary-dark dark:bg-secondary-light mx-8' />
+      <div className='flex items-center space-x-3'>
+        <Button>
+          <BsTypeBold />
+        </Button>
 
-      <Button>
-        <BsTypeBold />
-      </Button>
+        <Button>
+          <BsTypeItalic />
+        </Button>
+
+        <Button>
+          <BsTypeUnderline />
+        </Button>
+
+        <Button>
+          <BsTypeStrikethrough />
+        </Button>
+      </div>
+      {/* 区切り */}
+      <div className='h-4 w-[1px] bg-secondary-dark dark:bg-secondary-light mx-8' />
+      <div className='flex items-center space-x-3'>
+        <Button>
+          <RiDoubleQuotesL />
+        </Button>
+
+        <Button>
+          <BsCode />
+        </Button>
+
+        <Button>
+          <BsBraces />
+        </Button>
+
+        <Button>
+          <BsLink45Deg />
+        </Button>
+
+        <Button>
+          <BsListOl />
+        </Button>
+
+        <Button>
+          <BsListUl />
+        </Button>
+      </div>
+      <div className='h-4 w-[1px] bg-secondary-dark dark:bg-secondary-light mx-8' />
+      <div className='flex items-center space-x-3'>
+        <Button>
+          <BsYoutube />
+        </Button>
+
+        <Button>
+          <BsImageFill />
+        </Button>
+      </div>
     </div>
   )
 }
