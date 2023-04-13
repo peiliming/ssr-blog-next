@@ -22,7 +22,7 @@ const Editor: FC<Props> = (props):JSX.Element => {
   return (
     <div className='p-3 dark:bg-primary-dark bg-primary transition'> 
       <ToolBar editor={editor} />
-      <div className='h-[1px] w-full bg-secondary-dark dark:bg-secondary-light mr-3 mt-3'></div>
+      <div className='h-[1px] w-full bg-secondary-dark dark:bg-secondary-light my-3'></div>
       <EditorContent editor={editor} />
     </div>
   )

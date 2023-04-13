@@ -6,6 +6,7 @@ interface Props {
   children: ReactNode
   active?: boolean
   disabled?: boolean
+  //class: string
   onMouseDown?: MouseEventHandler<HTMLButtonElement>
   onClick?: MouseEventHandler<HTMLButtonElement>
 }
@@ -20,7 +21,7 @@ const Button: FC<Props> = (
   }): JSX.Element => {
     const getActiveStyle = useCallback((): string => {
       if(active) {
-        return 'dark:bg-primay dark:text-primay-dark bg-primary-dark text-primay'
+        return 'dark:pg-primary dark:text-primay-dark bg-primary-dark text-primary'
       } else {
         return 'text-secondary-light bg-secondary-dark'
       }
