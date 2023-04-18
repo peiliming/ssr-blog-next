@@ -18,6 +18,7 @@ import {
   BsYoutube,
 } from 'react-icons/bs'
 import { RiDoubleQuotesL } from 'react-icons/ri'
+import InsertLink from '@/components/editor/Link/InsertLink'
 
 import Button from '@/components/editor/ToolBar/Button'
 
@@ -124,6 +125,8 @@ const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
         <Button>
           <BsLink45Deg />
         </Button>
+
+        <InsertLink />
 
         <Button
           active={editor.isActive('orderedList')}
