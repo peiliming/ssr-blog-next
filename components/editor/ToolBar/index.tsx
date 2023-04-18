@@ -122,10 +122,6 @@ const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
           <BsBraces />
         </Button>
 
-        <Button>
-          <BsLink45Deg />
-        </Button>
-
         <InsertLink />
 
         <Button

@@ -1,13 +1,14 @@
 import { FC } from 'react'
 
 interface Props {
+  visible: boolean
 }
 
-const LinkForm: FC<Props> = (props): JSX.Element | null => {
-
+const LinkForm: FC<Props> = ({visible}): JSX.Element | null => {
+  if (!visible) return null
   return (
-    <div className='rounded p-2 bg-primary dark:bg-primary-dark shadow-secondary-dark'>
-      <input type='text' className='bg-transparent rounded border-2 border-secondary-dark
+    <div className='rounded p-2 bg-primary border-2 border-black border-solid dark:bg-primary-dark shadow-secondary-dark'>
+      <input autoFocus type='text' className='bg-transparent rounded border-2 border-secondary-dark
       focus:border-primary-dark dark:focus:border-primary transition p-2 text-primary-dark
       dark:text-primary'
       placeholder='https://example.com' />
