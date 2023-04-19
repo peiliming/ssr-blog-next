@@ -18,8 +18,10 @@ import {
   BsYoutube,
 } from 'react-icons/bs'
 import { RiDoubleQuotesL } from 'react-icons/ri'
+import InsertLink from '@/components/editor/Link/InsertLink'
 
 import Button from '@/components/editor/ToolBar/Button'
+import { linkOption } from '@/components/editor/Link/LinkForm'
 
 interface Props {
   editor: Editor | null
@@ -52,6 +54,16 @@ const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
     if(editor.isActive('heading', {level: 2})) return '見出し2'
     if(editor.isActive('heading', {level: 3})) return '見出し3'
     return 'テキスト'
+  }
+
+  const handleLinkSubmit = ({url, openInNewTab}: linkOption) => {
+    const { commands } = editor
+    if(openInNewTab) {
+      commands.setLink({ href: url, target: '_blank' })
+    } else {
+      commands.setLink({ href: url })
+    }
+    
   }
 
   const Head = ():JSX.Element => {
@@ -121,9 +133,7 @@ const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
           <BsBraces />
         </Button>
 
-        <Button>
-          <BsLink45Deg />
-        </Button>
+        <InsertLink onSubmit={handleLinkSubmit} />
 
         <Button
           active={editor.isActive('orderedList')}
