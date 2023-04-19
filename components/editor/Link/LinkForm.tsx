@@ -1,4 +1,5 @@
 import { FC, useState } from 'react'
+import { validateUrl } from '@/components/editor/EditorUtils'
 
 interface Props {
   visible: boolean
@@ -15,7 +16,8 @@ const LinkForm: FC<Props> = ({visible, onSubmit}): JSX.Element | null => {
 
   const handleSubmit = () => {
     if(!link.url.trim()) return  
-    onSubmit(link)
+
+    onSubmit({...link, url: validateUrl(link.url)})
   }
 
   if (!visible) return null
