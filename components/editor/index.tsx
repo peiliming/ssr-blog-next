@@ -7,11 +7,25 @@ import Underline from '@tiptap/extension-underline'
 import Placeholder from '@tiptap/extension-placeholder'
 import ToolBar from '@/components/editor/ToolBar'
 
+// https://tiptap.dev/api/marks/link
+import Link from '@tiptap/extension-link'
+
 interface Props {}
 
 const Editor: FC<Props> = (props):JSX.Element => {
   const editor = useEditor({
-    extensions: [StarterKit, Underline, Placeholder.configure({
+    extensions: [
+      StarterKit,
+      Underline,
+      Link.configure({
+        autolink: false,
+        linkOnPaste: false,
+        openOnClick: false,
+        HTMLAttributes: {
+          target: '',
+        }
+      }),
+      Placeholder.configure({
       placeholder: '何かを打ってみようか',
     })],
     editorProps: {
