@@ -8,17 +8,28 @@ interface Props {
   onSubmit(link: linkOption): void
 }
 
-const InsertLink: FC<Props> = ({onSubmit}): JSX.Element => {
+const InsertLink: FC<Props> = ({ onSubmit }): JSX.Element => {
   const [visible, setVisible] = useState(false)
+
+  const handleSubmit = (link: linkOption) => {
+    if(!link.url.trim()) return hideForm()
+
+    onSubmit(link)
+    hideForm()
+  }
+
+  const showForm = () => setVisible(true)
+  const hideForm = () => setVisible(false) 
+
   return (
     <div onKeyDown={({key}) => {
-      if(key === 'Escape') setVisible(false)
+      if(key === 'Escape') hideForm()
     }} className='relative'>
-      <Button onClick={() => setVisible(!visible)}>
+      <Button onClick={visible ? hideForm : showForm}>
         <BsLink45Deg />
       </Button>
       <div className='absolute top-full mt-4 right-0 z-50'>
-        <LinkForm visible={visible} onSubmit={onSubmit} />
+        <LinkForm visible={visible} onSubmit={handleSubmit} />
       </div>
     </div>
   )
