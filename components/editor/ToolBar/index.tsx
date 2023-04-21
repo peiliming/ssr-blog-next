@@ -69,7 +69,7 @@ const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
 
   // https://tiptap.dev/api/nodes/youtube
   const handleEmbedYoutube = (url: string) => {
-    // https://www.youtube.com/live/MVPTGNGiI-4?feature=shareでテスト
+    // https://www.youtube.com/watch?v=MVPTGNGiI-4でテスト
     editor.chain().focus().setYoutubeVideo({src: url}).run()
   }
 

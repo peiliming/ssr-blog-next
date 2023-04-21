@@ -33,7 +33,10 @@ const Editor: FC<Props> = (props):JSX.Element => {
       }),
       Youtube.configure({
         width: 840,
-        height:472.5
+        height:472.5,
+        HTMLAttributes: {
+          class: 'mx-auto rounded',
+        }
       })
     ],
     
