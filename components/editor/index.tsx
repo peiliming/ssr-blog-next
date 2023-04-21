@@ -10,6 +10,7 @@ import ToolBar from '@/components/editor/ToolBar'
 // https://tiptap.dev/api/marks/link
 import Link from '@tiptap/extension-link'
 import EditLink from './Link/EditLink'
+import Youtube from '@tiptap/extension-youtube'
 
 interface Props {}
 
@@ -28,25 +29,30 @@ const Editor: FC<Props> = (props):JSX.Element => {
         }
       }),
       Placeholder.configure({
-      placeholder: '何かを打ってみようか',
-    })],
+        placeholder: '何かを打ってみようか',
+      }),
+      Youtube.configure({
+        width: 840,
+        height:472.5
+      })
+    ],
     
-    editorProps: {
-      // https://tiptap.dev/guide/menus#bubble-menu -> bubble menu（浮くアイコンを作る）
-      handleClick(view, pos, event) {
-        const {state} = view
-        const selectionRange = getMarkRange(
-          state.doc.resolve(pos),
-          state.schema.marks.link
-        )
-        if(selectionRange) {
-          setSelectionRange(selectionRange)
+      editorProps: {
+        // https://tiptap.dev/guide/menus#bubble-menu -> bubble menu（浮くアイコンを作る）
+        handleClick(view, pos, event) {
+          const {state} = view
+          const selectionRange = getMarkRange(
+            state.doc.resolve(pos),
+            state.schema.marks.link
+          )
+          if(selectionRange) {
+            setSelectionRange(selectionRange)
+          }
+        },
+        attributes: {
+          class: 'prose prose-lg focus:outline-none dark:prose-invert max-w-full mx-auto h-full'
         }
-      },
-      attributes: {
-        class: 'prose prose-lg focus:outline-none dark:prose-invert max-w-full mx-auto h-full'
-      }
-    }})
+      }})
 
     useEffect(() => {
       if(editor && selectionRange) {
