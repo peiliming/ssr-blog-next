@@ -32,6 +32,7 @@ const EditLink: FC<Props> = ({editor}): JSX.Element => {
       .unsetLink()
       .setLink({href: url, target: openInNewTab ? '_blank': ''})
       .run()
+    setShowEditForm(false)
   }
 
   const getInitialState = useCallback(() => {
