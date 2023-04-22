@@ -1,9 +1,12 @@
 import { FC, ReactNode } from 'react'
 
-interface Props {
-  children: ReactNode
+export interface ModalProps {
   visible?: boolean
   onClose?(): void
+}
+
+interface Props extends ModalProps {
+  children: ReactNode
 }
 
 const ModalContainer: FC<Props> = ({children, visible, onClose}): JSX.Element | null => {

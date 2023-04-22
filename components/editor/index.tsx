@@ -71,7 +71,7 @@ const Editor: FC<Props> = (props):JSX.Element => {
         {editor ? <EditLink editor={editor} /> : null}
         <EditorContent editor={editor} />
       </div>
-      <GalleryModal />
+      <GalleryModal visible />
     </>
     
   )
