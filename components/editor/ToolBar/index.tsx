@@ -22,12 +22,14 @@ import InsertLink from '@/components/editor/Link/InsertLink'
 
 import Button from '@/components/editor/ToolBar/Button'
 import { linkOption } from '@/components/editor/Link/LinkForm'
+import EmbedYoutube from '@/components/editor/ToolBar/EmbedYoutube'
 
 interface Props {
   editor: Editor | null
+  onOpenImageClick?(): void
 }
 
-const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
+const ToolBar: FC<Props> = ({editor, onOpenImageClick}):JSX.Element | null => {
   if(!editor) return null
   
   const options = [
@@ -64,6 +66,12 @@ const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
       commands.setLink({ href: url })
     }
     
+  }
+
+  // https://tiptap.dev/api/nodes/youtube
+  const handleEmbedYoutube = (url: string) => {
+    // https://www.youtube.com/watch?v=MVPTGNGiI-4でテスト
+    editor.chain().focus().setYoutubeVideo({src: url}).run()
   }
 
   const Head = ():JSX.Element => {
@@ -151,11 +159,9 @@ const ToolBar: FC<Props> = ({editor}):JSX.Element | null => {
       </div>
       <div className='h-4 w-[1px] bg-secondary-dark dark:bg-secondary-light mx-8' />
       <div className='flex items-center space-x-3'>
-        <Button>
-          <BsYoutube />
-        </Button>
+        <EmbedYoutube onSubmit={handleEmbedYoutube} />
 
-        <Button>
+        <Button onClick={onOpenImageClick}>
           <BsImageFill />
         </Button>
       </div>
