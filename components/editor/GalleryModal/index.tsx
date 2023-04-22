@@ -7,7 +7,7 @@ interface Props extends ModalProps {
 
 const GalleryModal: FC<Props> = ({visible, onClose}): JSX.Element => {
   return (
-    <ModalContainer visible={visible}>
+    <ModalContainer visible={visible} onClose={onClose}>
       <div className="bg-black p-20">
         <button className='bg-white p-3'>クリック</button>
       </div>
