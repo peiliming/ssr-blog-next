@@ -17,6 +17,8 @@ interface Props {}
 
 const Editor: FC<Props> = (props):JSX.Element => {
   const [selectionRange, setSelectionRange] = useState<Range>()
+  const [showGallery, setShowGallery] = useState(false)
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -66,12 +68,15 @@ const Editor: FC<Props> = (props):JSX.Element => {
   return (
     <>
       <div className='p-3 dark:bg-primary-dark bg-primary transition'> 
-        <ToolBar editor={editor} />
+        <ToolBar editor={editor} onOpenImageClick={() => setShowGallery(true)} />
         <div className='h-[1px] w-full bg-secondary-dark dark:bg-secondary-light my-3'></div>
         {editor ? <EditLink editor={editor} /> : null}
         <EditorContent editor={editor} />
       </div>
-      <GalleryModal visible />
+      <GalleryModal
+        visible={showGallery}
+        onClose={() => setShowGallery(false)}
+      />
     </>
     
   )
