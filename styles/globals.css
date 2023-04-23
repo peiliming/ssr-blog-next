@@ -9,3 +9,12 @@
   height: 0;
   pointer-events: none;
 }
+
+.custom-scroll-bar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb {
+  background: rgb(202, 181, 226);
+}
