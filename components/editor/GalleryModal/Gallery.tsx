@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import Image from '@/components/editor/GalleryModal/Image'
 
 interface Props {}
 
@@ -83,7 +84,7 @@ const Gallery: FC<Props> = (props): JSX.Element => {
     <div className='flex flex-wrap'>
       {images.map(({src}, index) => (
         <div key={index} className='basis-1/4'>
-          <img src={src} alt='gallery' />
+          <Image src={src} />
         </div>
       ))}
     </div>
