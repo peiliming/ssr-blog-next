@@ -84,7 +84,7 @@ const Gallery: FC<Props> = (props): JSX.Element => {
     <div className='flex flex-wrap'>
       {images.map(({src}, index) => (
         <div key={index} className='basis-1/4'>
-          <Image src={src} />
+          <Image src={src} selected={index === 0} />
         </div>
       ))}
     </div>

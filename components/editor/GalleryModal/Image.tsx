@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import NextImage from 'next/image'
+import CheckMark from '@/components/common/CheckMark'
 
 interface Props {
   src: string
@@ -9,7 +10,7 @@ interface Props {
 
 const Image: FC<Props> = ({src, selected, onClick}): JSX.Element => {
   return (
-    <div className='rounded overflow-hidden cursor-pointer'>
+    <div className='relative rounded overflow-hidden cursor-pointer' onClick={onClick}>
       <NextImage
         className='bg-secondary-light hover:scale-110 transition'
         src={src}
@@ -17,7 +18,12 @@ const Image: FC<Props> = ({src, selected, onClick}): JSX.Element => {
         height={200}
         alt='gallery'
       />
+
+      <div className='absolute top-2 left-2'>
+        <CheckMark visible={selected || false} />
+      </div>
     </div>
+
   )
 }
 
