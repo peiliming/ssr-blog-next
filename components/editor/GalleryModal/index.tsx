@@ -12,7 +12,7 @@ const GalleryModal: FC<Props> = ({visible, onClose}): JSX.Element => {
       <div className="max-w-4xl p-2 bg-primary-dark dark:bg-primary rounded">
         <div className="flex">
           {/* gallery */}
-          <div className="basis-[75%]">
+          <div className="basis-[75%] max-h-[450px] overflow-y-auto custom-scroll-bar">
             <Gallery />
           </div>
 
