@@ -1,5 +1,5 @@
 import ModalContainer, { ModalProps } from '@/components/common/ModalContainer'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import Gallery from '@/components/editor/GalleryModal/Gallery'
 
 interface Props extends ModalProps {}
@@ -80,13 +80,18 @@ const images= [
   ]
 
 const GalleryModal: FC<Props> = ({visible, onClose}): JSX.Element => {
+  const [selectedImage, setSelectedImage] = useState('')
+
   return (
     <ModalContainer visible={visible} onClose={onClose}>
       <div className="max-w-4xl p-2 bg-primary-dark dark:bg-primary rounded">
         <div className="flex">
           {/* gallery */}
           <div className="basis-[75%] max-h-[450px] overflow-y-auto custom-scroll-bar">
-            <Gallery images={images} uploading />
+            <Gallery
+              images={images}
+              selectedImage={selectedImage}
+              onSelect={(src) => setSelectedImage(src)} />
           </div>
 
           <div className="basis-1/4"></div>
