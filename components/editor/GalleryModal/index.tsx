@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import ModalContainer, { ModalProps } from '@/components/common/ModalContainer'
 import { FC, useState } from 'react'
 import Gallery from '@/components/editor/GalleryModal/Gallery'
@@ -84,17 +85,27 @@ const GalleryModal: FC<Props> = ({visible, onClose}): JSX.Element => {
 
   return (
     <ModalContainer visible={visible} onClose={onClose}>
-      <div className="max-w-4xl p-2 bg-primary-dark dark:bg-primary rounded">
-        <div className="flex">
+      <div className='max-w-4xl p-2 bg-primary-dark dark:bg-primary rounded'>
+        <div className='flex'>
           {/* gallery */}
-          <div className="basis-[75%] max-h-[450px] overflow-y-auto custom-scroll-bar">
+          <div className='basis-[75%] max-h-[450px] overflow-y-auto custom-scroll-bar'>
             <Gallery
               images={images}
               selectedImage={selectedImage}
               onSelect={(src) => setSelectedImage(src)} />
           </div>
 
-          <div className="basis-1/4"></div>
+          {selectedImage &&
+          <div className='basis-1/4'>
+            <div className='relative aspect-video'>
+              <Image
+                src={selectedImage}
+                width={220}
+                height={100}
+                alt='pic' />
+            </div>
+          </div>
+          }
         </div>
       </div>
     </ModalContainer>  
