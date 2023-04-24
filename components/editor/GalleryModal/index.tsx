@@ -97,10 +97,11 @@ const GalleryModal: FC<Props> = ({visible, onClose}): JSX.Element => {
 
           {selectedImage &&
           <div className='basis-1/4'>
-            <div className='relative aspect-video'>
+            <div className='relative aspect-video bg-png-pattern'>
               <Image
+                className='pl-4'
                 src={selectedImage}
-                width={220}
+                width={200}
                 height={100}
                 alt='pic' />
             </div>
