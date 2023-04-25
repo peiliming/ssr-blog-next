@@ -3,6 +3,7 @@ import ModalContainer, { ModalProps } from '@/components/common/ModalContainer'
 import { FC, useState } from 'react'
 import Gallery from '@/components/editor/GalleryModal/Gallery'
 import ActionButton from '@/components/common/ActionButton'
+import { AiOutlineCloudUpload } from 'react-icons/ai'
 
 interface Props extends ModalProps {}
 
@@ -99,6 +100,17 @@ const GalleryModal: FC<Props> = ({visible, onClose}): JSX.Element => {
           {selectedImage &&
           <div className='basis-1/4 px-2'>
             <div className="space-y-4">
+              <div>
+                <input hidden type="file" id="image-input" />
+                <label htmlFor='image-input'>
+                  <div className='w-full border-2 border-action text-action
+                  flex  items-center justify-center space-x-2 p-2 cursor-pointer rounded'>
+                    <AiOutlineCloudUpload />
+                    <span>画像をアップロード</span>
+                  </div>
+                </label>
+              </div>
+
               {selectedImage ? (
               <>
                 <textarea className='resize-none w-full bg-transparent rounded border-2
