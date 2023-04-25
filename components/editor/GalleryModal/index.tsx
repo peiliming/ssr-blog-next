@@ -96,15 +96,24 @@ const GalleryModal: FC<Props> = ({visible, onClose}): JSX.Element => {
           </div>
 
           {selectedImage &&
-          <div className='basis-1/4'>
-            <div className='relative aspect-video bg-png-pattern'>
-              <Image
-                className='pl-4'
-                src={selectedImage}
-                width={200}
-                height={100}
-                alt='pic' />
-            </div>
+          <div className='basis-1/4 px-2'>
+            {selectedImage ? (
+            <>
+              <textarea className='resize-none w-full bg-transparent rounded border-2
+              border-secondary-dark focus:ring-1 text-primary dark:text-primary-dark
+              h-32 p-1'
+              placeholder='Alt texxt'
+              ></textarea>
+
+              <div className='relative aspect-video bg-png-pattern'>
+                <Image
+                  className='pl-1'
+                  src={selectedImage}
+                  width={200}
+                  height={100}
+                  alt='pic' />
+              </div> 
+            </> ) : null }
           </div>
           }
         </div>
