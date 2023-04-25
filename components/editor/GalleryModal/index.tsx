@@ -2,6 +2,7 @@ import Image from 'next/image'
 import ModalContainer, { ModalProps } from '@/components/common/ModalContainer'
 import { FC, useState } from 'react'
 import Gallery from '@/components/editor/GalleryModal/Gallery'
+import ActionButton from '@/components/common/ActionButton'
 
 interface Props extends ModalProps {}
 
@@ -97,23 +98,27 @@ const GalleryModal: FC<Props> = ({visible, onClose}): JSX.Element => {
 
           {selectedImage &&
           <div className='basis-1/4 px-2'>
-            {selectedImage ? (
-            <>
-              <textarea className='resize-none w-full bg-transparent rounded border-2
-              border-secondary-dark focus:ring-1 text-primary dark:text-primary-dark
-              h-32 p-1'
-              placeholder='Alt texxt'
-              ></textarea>
+            <div className="space-y-4">
+              {selectedImage ? (
+              <>
+                <textarea className='resize-none w-full bg-transparent rounded border-2
+                border-secondary-dark focus:ring-1 text-primary dark:text-primary-dark
+                h-32 p-1'
+                placeholder='Alt texxt'
+                ></textarea>
 
-              <div className='relative aspect-video bg-png-pattern'>
-                <Image
-                  className='pl-1'
-                  src={selectedImage}
-                  width={200}
-                  height={100}
-                  alt='pic' />
-              </div> 
-            </> ) : null }
+                <ActionButton busy title='Select' />
+
+                <div className='relative aspect-video bg-png-pattern'>
+                  <Image
+                    className='pl-1'
+                    src={selectedImage}
+                    width={200}
+                    height={100}
+                    alt='pic' />
+                </div> 
+              </> ) : null }
+            </div>
           </div>
           }
         </div>
