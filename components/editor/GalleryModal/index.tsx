@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import ModalContainer, { ModalProps } from '@/components/common/ModalContainer'
-import { ChangeEventHandler, FC, useState } from 'react'
+import { ChangeEventHandler, FC, useCallback, useState } from 'react'
 import Gallery from '@/components/editor/GalleryModal/Gallery'
 import ActionButton from '@/components/common/ActionButton'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
@@ -11,7 +11,7 @@ export interface ImageSelectionResult {
 }
 
 interface Props extends ModalProps {
-  onImageSelect(image: File): void
+  onFileSelect(image: File): void
   onSelect(result: ImageSelectionResult): void
 }
 
@@ -90,9 +90,11 @@ const images= [
     },
   ]
 
-const GalleryModal: FC<Props> = ({visible, onImageSelect, onSelect, onClose}): JSX.Element => {
+const GalleryModal: FC<Props> = ({visible, onFileSelect, onSelect, onClose}): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState('')
   const [altText, setAltText] = useState('')
+
+  const handleClose = useCallback(() => onClose && onClose(), [onClose])
 
   const handleOnImageChange: ChangeEventHandler<HTMLInputElement> = ({target}) => {
     const {files} = target
@@ -100,15 +102,16 @@ const GalleryModal: FC<Props> = ({visible, onImageSelect, onSelect, onClose}): J
 
     const file = files[0]
     if(file.type.startsWith('image')) {
-      return onClose && onClose()
+      return handleClose()
     }
 
-    onImageSelect(file)
+    onFileSelect(file)
   }
 
   const handleSelection = () => {
-    if(!selectedImage) return onClose && onClose()
+    if(!selectedImage) return handleClose()
     onSelect({src: selectedImage, altText})
+    handleClose()
   }
 
   return (
