@@ -11,7 +11,9 @@ import ToolBar from '@/components/editor/ToolBar'
 import Link from '@tiptap/extension-link'
 import EditLink from './Link/EditLink'
 import Youtube from '@tiptap/extension-youtube'
-import GalleryModal from '@/components/editor/GalleryModal'
+// https://tiptap.dev/api/nodes/image
+import TipTapImage from '@tiptap/extension-image'
+import GalleryModal, { ImageSelectionResult } from '@/components/editor/GalleryModal'
 
 interface Props {}
 
@@ -40,6 +42,11 @@ const Editor: FC<Props> = (props):JSX.Element => {
         HTMLAttributes: {
           class: 'mx-auto rounded',
         }
+      }),
+      TipTapImage.configure({
+        HTMLAttributes: {
+          class: 'mx-auto'
+        }
       })
     ],
     
@@ -60,11 +67,16 @@ const Editor: FC<Props> = (props):JSX.Element => {
         }
       }})
 
-    useEffect(() => {
-      if(editor && selectionRange) {
-        editor.commands.setTextSelection(selectionRange)
-      }
-    }, [editor, selectionRange])
+  const handleImageSelection = (result: ImageSelectionResult) => {
+    editor?.chain().focus().setImage({src: result.src, alt: result.altText}).run()
+  }
+
+  useEffect(() => {
+    if(editor && selectionRange) {
+      editor.commands.setTextSelection(selectionRange)
+    }
+  }, [editor, selectionRange])
+
   return (
     <>
       <div className='p-3 dark:bg-primary-dark bg-primary transition'> 
@@ -80,9 +92,7 @@ const Editor: FC<Props> = (props):JSX.Element => {
       <GalleryModal
         visible={showGallery}
         onClose={() => setShowGallery(false)}
-        onSelect={(result) => {
-          console.log(result)
-        }} //upload logic
+        onSelect={handleImageSelection} //upload logic
       />
     </>
     

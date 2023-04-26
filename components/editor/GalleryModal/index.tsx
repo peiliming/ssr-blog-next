@@ -109,6 +109,7 @@ const GalleryModal: FC<Props> = ({visible, onImageSelect, onSelect, onClose}): J
   const handleSelection = () => {
     if(!selectedImage) return onClose && onClose()
     onSelect({src: selectedImage, altText})
+    onClose && onClose()
   }
 
   return (
