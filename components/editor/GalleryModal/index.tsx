@@ -11,7 +11,7 @@ export interface ImageSelectionResult {
 }
 
 interface Props extends ModalProps {
-  onImageSelect(image: File): void
+  onFileSelect(image: File): void
   onSelect(result: ImageSelectionResult): void
 }
 
@@ -90,7 +90,7 @@ const images= [
     },
   ]
 
-const GalleryModal: FC<Props> = ({visible, onImageSelect, onSelect, onClose}): JSX.Element => {
+const GalleryModal: FC<Props> = ({visible, onFileSelect, onSelect, onClose}): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState('')
   const [altText, setAltText] = useState('')
 
@@ -105,7 +105,7 @@ const GalleryModal: FC<Props> = ({visible, onImageSelect, onSelect, onClose}): J
       return handleClose()
     }
 
-    onImageSelect(file)
+    onFileSelect(file)
   }
 
   const handleSelection = () => {
