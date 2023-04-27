@@ -1,7 +1,6 @@
 import { NextApiHandler } from "next"
 import formidable from 'formidable'
 // https://cloudinary.com/documentation/node_integration
-import { v2 as cloudinary } from 'cloudinary'
 
 export const config = {
   api: { BodyParser: false },
