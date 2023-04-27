@@ -1,6 +1,6 @@
 import { NextApiHandler } from "next"
 import formidable from 'formidable'
-// https://cloudinary.com/documentation/node_integration
+import cloudinary from '@/lib/cloudinary'
 
 export const config = {
   api: { BodyParser: false },
@@ -22,6 +22,12 @@ const uploadNewImage: NextApiHandler = (req, res) => {
     if(err) return res.status(500).json({error: err.message})
 
     const imageFile = files.image as formidable.File
+
+    const { secure_url, url } = await cloudinary.uploader.upload(imageFile.filepath, {
+      folder: 'ssr-blogs'
+    })
+
+    res.json({ image: secure_url, url })
 
 
   })

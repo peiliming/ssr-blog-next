@@ -1,3 +1,4 @@
+// https://cloudinary.com/documentation/node_integration
 import { v2 as cloudinary } from 'cloudinary'
 
 cloudinary.config({
@@ -6,3 +7,5 @@ cloudinary.config({
   cloud_api_secret: process.env.CLOUD_API_SECRET,
   secure: true
 })
+
+export default cloudinary
