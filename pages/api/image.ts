@@ -1,4 +1,11 @@
 import { NextApiHandler } from "next"
+import formidable from 'formidable'
+// https://cloudinary.com/documentation/node_integration
+import { v2 as cloudinary } from 'cloudinary'
+
+export const config = {
+  api: { BodyParser: false },
+}
 
 const handler: NextApiHandler = (req, res) => {
   const {method} = req
@@ -11,7 +18,14 @@ const handler: NextApiHandler = (req, res) => {
 }
 
 const uploadNewImage: NextApiHandler = (req, res) => {
-  
+  const form = formidable()
+  form.parse(req, (err, fields, files) => {
+    if(err) return res.status(500).json({error: err.message})
+
+    const imageFile = files.image as formidable.File
+
+
+  })
 }
 
 const readAllImages: NextApiHandler = (req, res) => {}
