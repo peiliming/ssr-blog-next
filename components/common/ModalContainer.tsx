@@ -29,7 +29,6 @@ const ModalContainer: FC<Props> = ({
   useEffect(() => {
     const closeModal = ({key}: any) => key === 'Escape' && handleClose()
     document.addEventListener('keydown', closeModal)
-    console.log('ok')
     return () => document.removeEventListener('keydown', closeModal)
   }, [handleClose])
 
