@@ -12,6 +12,7 @@ export interface ImageSelectionResult {
 
 interface Props extends ModalProps {
   images: {src: string}[]
+  uploading?: boolean
   onFileSelect(image: File): void
   onSelect(result: ImageSelectionResult): void
 }
@@ -91,7 +92,7 @@ const images= [
     },
   ]
 
-const GalleryModal: FC<Props> = ({visible, images, onFileSelect, onSelect, onClose}): JSX.Element => {
+const GalleryModal: FC<Props> = ({visible, uploading, images, onFileSelect, onSelect, onClose}): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState('')
   const [altText, setAltText] = useState('')
 
@@ -123,6 +124,7 @@ const GalleryModal: FC<Props> = ({visible, images, onFileSelect, onSelect, onClo
           <div className='basis-[75%] max-h-[450px] overflow-y-auto custom-scroll-bar'>
             <Gallery
               images={images}
+              uploading={uploading}
               selectedImage={selectedImage}
               onSelect={(src) => setSelectedImage(src)} />
           </div>
