@@ -15,17 +15,29 @@ import Youtube from '@tiptap/extension-youtube'
 import TipTapImage from '@tiptap/extension-image'
 import GalleryModal, { ImageSelectionResult } from '@/components/editor/GalleryModal'
 import axios from 'axios'
+import SeoForm from '@/components/editor/SeoForm'
 
 interface Props {}
 
 const Editor: FC<Props> = (props):JSX.Element => {
   const [selectionRange, setSelectionRange] = useState<Range>()
   const [showGallery, setShowGallery] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState<{src: string}[]>([])
 
   const fetchImages = async () => {
     const {data} = await axios('/api/image')
     setImages(data.images)
+  }
+
+  const handleImageUpload = async (image: File) => {
+    setUploading(true)
+    const formData = new FormData()
+    formData.append('image', image)
+    const {data} = await axios.post('/api/image', formData)
+    setUploading(false)
+    
+    setImages([data, ...images])
   }
 
   const editor = useEditor({
@@ -90,7 +102,13 @@ const Editor: FC<Props> = (props):JSX.Element => {
 
   return (
     <>
-      <div className='p-3 dark:bg-primary-dark bg-primary transition'> 
+      <div className='p-3 outline-none dark:bg-primary-dark bg-primary transition'>
+        <input type='text'
+          className='py-2 bg-transparent w-full border-0 border-b-[1px]
+          border-csecondary-dark dark:border-secondary-light text-3xl font-semibold
+          italic text-primary-dark dark:text-primary mb-3' 
+          placeholder='タイトル'
+          />
         <ToolBar
           editor={editor}
           onOpenImageClick={() => setShowGallery(true)}
@@ -99,12 +117,15 @@ const Editor: FC<Props> = (props):JSX.Element => {
         <div className='h-[1px] w-full bg-secondary-dark dark:bg-secondary-light my-3'></div>
         {editor ? <EditLink editor={editor} /> : null}
         <EditorContent editor={editor} />
+        <SeoForm />
       </div>
       <GalleryModal
         visible={showGallery}
         onClose={() => setShowGallery(false)}
         onSelect={handleImageSelection} //upload logic
         images={images}
+        onFileSelect={handleImageUpload}
+        uploading={uploading}
       />
     </>
     
