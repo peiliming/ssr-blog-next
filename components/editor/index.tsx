@@ -101,7 +101,13 @@ const Editor: FC<Props> = (props):JSX.Element => {
 
   return (
     <>
-      <div className='p-3 dark:bg-primary-dark bg-primary transition'> 
+      <div className='p-3 outline-none dark:bg-primary-dark bg-primary transition'>
+        <input type='text'
+          className='py-2 bg-transparent w-full border-0 border-b-[1px]
+          border-csecondary-dark dark:border-secondary-light text-3xl font-semibold
+          italic text-primary-dark dark:text-primary mb-3' 
+          placeholder='タイトル'
+          />
         <ToolBar
           editor={editor}
           onOpenImageClick={() => setShowGallery(true)}
