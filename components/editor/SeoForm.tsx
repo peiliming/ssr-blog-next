@@ -24,10 +24,14 @@ const SeoForm: FC<Props> = (props): JSX.Element => {
         label='Tags:'
       />
 
-      <textarea
-        className={classnames(commonInput, 'text-xl h-20 resize-none')}
-        placeholder='Meta description'
-      ></textarea>
+      <div className="relative">  
+        <textarea
+          className={classnames(commonInput, 'text-xl h-20 resize-none')}
+          placeholder='Meta情報, 150文字以内'
+        ></textarea>
+        <p className='absolute bottom-3 right-3 text-primary-dark
+        dark:text-primary text-sm'>0/150</p>
+      </div>
     </div>
   )
 }
