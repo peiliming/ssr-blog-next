@@ -16,6 +16,8 @@ import TipTapImage from '@tiptap/extension-image'
 import GalleryModal, { ImageSelectionResult } from '@/components/editor/GalleryModal'
 import axios from 'axios'
 import SeoForm from '@/components/editor/SeoForm'
+import ActionButton from '@/components/common/ActionButton'
+import ThumbnailSelector from '@/components/editor/ThumbnailSelector'
 
 interface Props {}
 
@@ -103,6 +105,15 @@ const Editor: FC<Props> = (props):JSX.Element => {
   return (
     <>
       <div className='p-3 outline-none dark:bg-primary-dark bg-primary transition'>
+
+        {/* サムネール画像と確認ボタンの箇所 */}
+        <div className="flex item-center justify-between mb-3">
+          <ThumbnailSelector />
+          <ActionButton
+            title='確認'
+          />
+        </div>
+
         <input type='text'
           className='py-2 bg-transparent w-full border-0 border-b-[1px]
           border-csecondary-dark dark:border-secondary-light text-3xl font-semibold
@@ -116,8 +127,11 @@ const Editor: FC<Props> = (props):JSX.Element => {
 
         <div className='h-[1px] w-full bg-secondary-dark dark:bg-secondary-light my-3'></div>
         {editor ? <EditLink editor={editor} /> : null}
-        <EditorContent editor={editor} />
-        <SeoForm />
+        <EditorContent editor={editor} className='min-h-[300px]' />
+        <div className='h-[1px] w-full bg-secondary-dark dark:bg-secondary-light my-3' />
+        <SeoForm onChange={(result) => {
+          console.log(result)
+        }} />
       </div>
       <GalleryModal
         visible={showGallery}
