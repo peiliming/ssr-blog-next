@@ -1,13 +1,14 @@
 import classNames from 'classnames'
-import { ChangeEventHandler, FC, useState } from 'react'
+import { ChangeEventHandler, FC, useEffect, useState } from 'react'
 
 interface Props {
-
+  initialValue?: string
+  onChange(file: File): void
 }
 
 const commonClass = 'border border-dashed border-secondary-dark flex items-center justify-center rounded cursor-pointer aspect-video'
 
-const ThumbnailSelector: FC<Props> = (props): JSX.Element => {
+const ThumbnailSelector: FC<Props> = ({initialValue, onChange}): JSX.Element => {
   const [selectedThumbnail, setSelectedThumbnail] = useState('')
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const { files } = target
@@ -15,7 +16,15 @@ const ThumbnailSelector: FC<Props> = (props): JSX.Element => {
 
     const file = files[0]
     setSelectedThumbnail(URL.createObjectURL(file))
+    onChange(file)
   }
+
+  useEffect(() => {
+    if(initialValue) {
+      setSelectedThumbnail(initialValue)
+    }
+  }, [initialValue])
+
   return (
     <div className='w-32'>
       <input
