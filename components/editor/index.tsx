@@ -107,11 +107,11 @@ const Editor: FC<Props> = (props):JSX.Element => {
       <div className='p-3 outline-none dark:bg-primary-dark bg-primary transition'>
 
         {/* サムネール画像と確認ボタンの箇所 */}
-        <div className="flex item-center justify-between mb-3">
-          <ThumbnailSelector />
-          <ActionButton
-            title='確認'
-          />
+        <div className="flex items-center justify-between mb-3">
+          <ThumbnailSelector onChange={(file) => console.log(file)} />
+          <div className="inline-block">
+            <ActionButton title='確認' />
+          </div>
         </div>
 
         <input type='text'
