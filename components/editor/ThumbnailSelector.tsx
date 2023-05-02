@@ -20,7 +20,7 @@ const ThumbnailSelector: FC<Props> = ({initialValue, onChange}): JSX.Element => 
   }
 
   useEffect(() => {
-    if(initialValue) {
+    if(typeof initialValue === 'string' ) {
       setSelectedThumbnail(initialValue)
     }
   }, [initialValue])
