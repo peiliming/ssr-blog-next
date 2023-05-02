@@ -25,11 +25,14 @@ interface FinalPost extends SeoResult{
   meta: string
   tags: string
   slug: string
+  thumbnail?: File | string
 }
 
-interface Props {}
+interface Props {
+  onSubmit(post: FinalPost): void
+}
 
-const Editor: FC<Props> = (props):JSX.Element => {
+const Editor: FC<Props> = ({onSubmit}):JSX.Element => {
   const [selectionRange, setSelectionRange] = useState<Range>()
   const [showGallery, setShowGallery] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -86,22 +89,27 @@ const Editor: FC<Props> = (props):JSX.Element => {
       })
     ],
     
-      editorProps: {
-        // https://tiptap.dev/guide/menus#bubble-menu -> bubble menu（浮くアイコンを作る）
-        handleClick(view, pos, event) {
-          const {state} = view
-          const selectionRange = getMarkRange(
-            state.doc.resolve(pos),
-            state.schema.marks.link
-          )
-          if(selectionRange) {
-            setSelectionRange(selectionRange)
-          }
-        },
-        attributes: {
-          class: 'prose prose-lg focus:outline-none dark:prose-invert max-w-full mx-auto h-full'
+    editorProps: {
+      // https://tiptap.dev/guide/menus#bubble-menu -> bubble menu（浮くアイコンを作る）
+      handleClick(view, pos, event) {
+        const {state} = view
+        const selectionRange = getMarkRange(
+          state.doc.resolve(pos),
+          state.schema.marks.link
+        )
+        if(selectionRange) {
+          setSelectionRange(selectionRange)
         }
-      }})
+      },
+      attributes: {
+        class: 'prose prose-lg focus:outline-none dark:prose-invert max-w-full mx-auto h-full'
+      }
+    }})
+  
+  const handleSubmit = () => {
+    if(!editor) return
+    onSubmit({ ...post, content: editor.getHTML() })
+  }
 
   const handleImageSelection = (result: ImageSelectionResult) => {
     editor?.chain().focus().setImage({src: result.src, alt: result.altText}).run()
@@ -114,6 +122,11 @@ const Editor: FC<Props> = (props):JSX.Element => {
   const updateSeoValue = (result: SeoResult) => {
     setPost({...post, ...result})
   }
+
+  const updateThumbnail = (file: File) => {
+    setPost({...post, thumbnail: file})
+  }
+  
 
   useEffect(() => {
     if(editor && selectionRange) {
@@ -132,9 +145,12 @@ const Editor: FC<Props> = (props):JSX.Element => {
 
         {/* サムネール画像と確認ボタンの箇所 */}
           <div className="flex items-center justify-between mb-3">
-            <ThumbnailSelector onChange={(file) => console.log(file)} />
+            <ThumbnailSelector onChange={updateThumbnail} />
             <div className="inline-block">
-              <ActionButton title='確認' />
+              <ActionButton
+                title='確認'
+                onClick={handleSubmit}
+              />
             </div>
           </div>
 
@@ -157,6 +173,7 @@ const Editor: FC<Props> = (props):JSX.Element => {
         <div className='h-[1px] w-full bg-secondary-dark dark:bg-secondary-light my-3' />
         <SeoForm 
           onChange={updateSeoValue}
+          title={post.title}
         />
       </div>
       <GalleryModal
