@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect, ChangeEventHandler } from 'react'
 import { useEditor, EditorContent, getMarkRange, Range } from '@tiptap/react'
 // https://tiptap.dev/installation/nextjs
 import StarterKit from '@tiptap/starter-kit'
@@ -15,9 +15,17 @@ import Youtube from '@tiptap/extension-youtube'
 import TipTapImage from '@tiptap/extension-image'
 import GalleryModal, { ImageSelectionResult } from '@/components/editor/GalleryModal'
 import axios from 'axios'
-import SeoForm from '@/components/editor/SeoForm'
+import SeoForm, { SeoResult } from '@/components/editor/SeoForm'
 import ActionButton from '@/components/common/ActionButton'
 import ThumbnailSelector from '@/components/editor/ThumbnailSelector'
+
+interface FinalPost extends SeoResult{
+  title: string
+  content: string
+  meta: string
+  tags: string
+  slug: string
+}
 
 interface Props {}
 
@@ -26,6 +34,13 @@ const Editor: FC<Props> = (props):JSX.Element => {
   const [showGallery, setShowGallery] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState<{src: string}[]>([])
+  const [post, setPost] = useState<FinalPost>({
+    title: '',
+    content: '',
+    meta: '',
+    tags: '',
+    slug: '',
+  })
 
   const fetchImages = async () => {
     const {data} = await axios('/api/image')
@@ -92,6 +107,14 @@ const Editor: FC<Props> = (props):JSX.Element => {
     editor?.chain().focus().setImage({src: result.src, alt: result.altText}).run()
   }
 
+  const updateTitle: ChangeEventHandler<HTMLInputElement> = ({target}) => {
+    setPost({...post, title: target.value})
+  }
+
+  const updateSeoValue = (result: SeoResult) => {
+    setPost({...post, ...result})
+  }
+
   useEffect(() => {
     if(editor && selectionRange) {
       editor.commands.setTextSelection(selectionRange)
@@ -120,6 +143,7 @@ const Editor: FC<Props> = (props):JSX.Element => {
             border-csecondary-dark dark:border-secondary-light text-3xl font-semibold
             italic text-primary-dark dark:text-primary mb-3' 
             placeholder='タイトル'
+            onChange={updateTitle}
             />
           <ToolBar
             editor={editor}
@@ -131,9 +155,9 @@ const Editor: FC<Props> = (props):JSX.Element => {
         {editor ? <EditLink editor={editor} /> : null}
         <EditorContent editor={editor} className='min-h-[300px]' />
         <div className='h-[1px] w-full bg-secondary-dark dark:bg-secondary-light my-3' />
-        <SeoForm onChange={(result) => {
-          console.log(result)
-        }} />
+        <SeoForm 
+          onChange={updateSeoValue}
+        />
       </div>
       <GalleryModal
         visible={showGallery}
