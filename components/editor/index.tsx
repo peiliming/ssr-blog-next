@@ -19,7 +19,7 @@ import SeoForm, { SeoResult } from '@/components/editor/SeoForm'
 import ActionButton from '@/components/common/ActionButton'
 import ThumbnailSelector from '@/components/editor/ThumbnailSelector'
 
-interface FinalPost extends SeoResult{
+export interface FinalPost extends SeoResult{
   title: string
   content: string
   meta: string
@@ -29,14 +29,18 @@ interface FinalPost extends SeoResult{
 }
 
 interface Props {
+  initialValue?: FinalPost
+  btnTitle?: string
+  busy?: boolean
   onSubmit(post: FinalPost): void
 }
 
-const Editor: FC<Props> = ({onSubmit}):JSX.Element => {
+const Editor: FC<Props> = ({initialValue, btnTitle = '確認', busy = false, onSubmit}):JSX.Element => {
   const [selectionRange, setSelectionRange] = useState<Range>()
   const [showGallery, setShowGallery] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [images, setImages] = useState<{src: string}[]>([])
+  const [seoInitialValue, setSeoInitialValue] = useState<SeoResult>()
   const [post, setPost] = useState<FinalPost>({
     title: '',
     content: '',
@@ -138,6 +142,15 @@ const Editor: FC<Props> = ({onSubmit}):JSX.Element => {
     fetchImages()
   }, [])
 
+  useEffect(() => {
+    if(initialValue) {
+      setPost({...initialValue})
+      editor?.commands.setContent(initialValue.content)
+      const { meta, slug, tags } = initialValue
+      setSeoInitialValue({ meta, slug, tags })
+    }
+  }, [initialValue, editor])
+
   return (
     <>
       <div className='p-3 outline-none dark:bg-primary-dark bg-primary transition'>
@@ -145,10 +158,13 @@ const Editor: FC<Props> = ({onSubmit}):JSX.Element => {
 
         {/* サムネール画像と確認ボタンの箇所 */}
           <div className="flex items-center justify-between mb-3">
-            <ThumbnailSelector onChange={updateThumbnail} />
+            <ThumbnailSelector 
+              initialValue={post.thumbnail as string}
+              onChange={updateThumbnail} />
             <div className="inline-block">
               <ActionButton
-                title='確認'
+                busy={busy}
+                title={btnTitle}
                 onClick={handleSubmit}
               />
             </div>
@@ -160,6 +176,7 @@ const Editor: FC<Props> = ({onSubmit}):JSX.Element => {
             italic text-primary-dark dark:text-primary mb-3' 
             placeholder='タイトル'
             onChange={updateTitle}
+            value={post.title}
             />
           <ToolBar
             editor={editor}
@@ -174,6 +191,7 @@ const Editor: FC<Props> = ({onSubmit}):JSX.Element => {
         <SeoForm 
           onChange={updateSeoValue}
           title={post.title}
+          initialValue={seoInitialValue}
         />
       </div>
       <GalleryModal

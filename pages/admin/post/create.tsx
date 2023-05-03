@@ -7,8 +7,17 @@ const Create: NextPage<Props> = () => {
   return (
     <div className='max-w-4xl mx-auto'>
       <Editor onSubmit={(post) => {
-        console.log(post)
-      }} />
+          console.log(post)
+        }}
+        initialValue={{
+          title: '',
+          meta: '',
+          content: '',
+          slug: '',
+          tags: '',
+          thumbnail: ''
+        }}
+      />
     </div>
   )
 }
