@@ -9,13 +9,14 @@ export interface SeoResult {
 }
 
 interface Props {
+  initialValue?: SeoResult
   title?: string
   onChange(result: SeoResult): void
 }
 
 const commonInput = 'w-full bg-transparent outline-none border-2 border-secondary-dark focus:border-primay-dark focus:dark:border-primary rounded transition dark:text-primary p-2'
 
-const SeoForm: FC<Props> = ({title='', onChange }): JSX.Element => {
+const SeoForm: FC<Props> = ({initialValue, title='', onChange }): JSX.Element => {
   const [values, setValues] = useState({meta: '', slug: '', tags: ''})
 
   const handleChange: ChangeEventHandler<
@@ -37,6 +38,13 @@ const SeoForm: FC<Props> = ({title='', onChange }): JSX.Element => {
     const newValues = {...values, slug}
     setValues({...newValues})
   }, [title])
+
+  useEffect(() => {
+    if(initialValue) {
+      setValues({ ...initialValue, slug: slugify(initialValue.slug) })
+    
+    }
+  }, [initialValue])
 
   const {meta, slug, tags} = values
 
