@@ -2,6 +2,7 @@ version: '3'
 services:
   app:
     build: ./docker/app/
+    container_name: blog_app
     ports:
       - '9999:3000'
     volumes:
@@ -10,3 +11,43 @@ services:
     tty: true
     environment:
       - CHOKIDAR_USEPOLLING=true
+    networks:
+      - default
+  mongo:
+    image: mongo:latest
+    env_file:
+      - ./app/.env
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - ./data/db:/database
+    networks:
+      - default
+      - mongo-express
+
+  mongo_express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${ME_CONFIG_MONGODB_ADMINUSERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${ME_CONFIG_MONGODB_ADMINPASSWORD}
+      ME_CONFIG_MONGODB_SERVER: ${ME_CONFIG_MONGODB_SERVER}
+      ME_CONFIG_BASICAUTH_USERNAME: ${ME_CONFIG_BASICAUTH_USERNAME} #mongo-expressアクセス時に要求されるユーザー名。なくてもOK。
+      ME_CONFIG_BASICAUTH_PASSWORD: ${ME_CONFIG_BASICAUTH_PASSWORD} #mongo-expressアクセス時に要求されるパスワード。なくてもOK。
+    depends_on:
+      - mongo #mongoコンテナが起動してから起動させる
+    networks:
+      - mongo-express
+  
+networks:
+  default:
+    driver: bridge
+  mongo-express:
+    driver: bridge
