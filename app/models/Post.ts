@@ -1,0 +1,1 @@
+// title, content, slug, tags, thumbnail, meta, author, date
