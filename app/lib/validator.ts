@@ -1,4 +1,5 @@
 import Joi, { ObjectSchema } from 'joi'
+//https://joi.dev/api/?v=17.9.1#example
 
 export const errorMessages = {
   INVALID_TITLE: 'タイトルはない！',

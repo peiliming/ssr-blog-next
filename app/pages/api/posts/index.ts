@@ -1,6 +1,5 @@
 import { NextApiHandler } from "next";
 import dbConnect from "@/lib/dbConnect";
-import Joi from 'joi'
 import { postValidationSchema, validateSchema } from "@/lib/validator";
 
 const handler: NextApiHandler = async (req, res) => {
