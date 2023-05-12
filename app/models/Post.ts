@@ -1,5 +1,5 @@
 // title, content, slug, tags, thumbnail, meta, author, date
-import { Schema, model } from 'mongoose'
+import { Schema, models, model } from 'mongoose'
 
 ('タイトル')
 const PostSchema = new Schema(
@@ -43,4 +43,6 @@ const PostSchema = new Schema(
   }
 )
 
-const Post = model('Post', PostSchema)
+const Post = models?.Post || model('Post', PostSchema)
+
+export default Post
