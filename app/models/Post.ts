@@ -1,7 +1,6 @@
 // title, content, slug, tags, thumbnail, meta, author, date
 import { Schema, models, model } from 'mongoose'
 
-('タイトル')
 const PostSchema = new Schema(
   {
     title: {

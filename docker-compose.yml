@@ -26,7 +26,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
-      - ./data/db:/database
+      - ./data/db:/data/db
     networks:
       - default
       - mongo-express

@@ -2,6 +2,7 @@ import { NextApiHandler } from "next"
 import dbConnect from "@/lib/dbConnect"
 import { postValidationSchema, validateSchema } from "@/lib/validator"
 import { readFile } from '@/lib/utils'
+import Post from "@/models/Post"
 
 export const config = {
   api: { bodyParser: false },
@@ -31,7 +32,26 @@ const createNewPost: NextApiHandler = async (req, res) => {
     return res.status(400).json({ error })
   }
 
-  res.json({ ok: true })
+  const {title, content, slug, meta} = body
+
+  await dbConnect()
+  const alreadyExits = await Post.findOne({slug: body.slug})
+  if(alreadyExits) {
+    return res.status(400).json({error: 'Slugがない！'})
+  }
+
+  // POST処理
+  const newPost = new Post({
+    title,
+    content,
+    slug,
+    meta,
+    tags,
+  })
+
+  await newPost.save()
+
+  res.json({ post: newPost })
   
 }
 
