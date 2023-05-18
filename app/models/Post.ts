@@ -1,7 +1,18 @@
 // title, content, slug, tags, thumbnail, meta, author, date
-import { Schema, models, model } from 'mongoose'
+import { Schema, models, model, ObjectId, Model } from 'mongoose'
 
-const PostSchema = new Schema(
+interface PostModelSchema {
+  title: string
+  slug: string
+  meta: string
+  content: string
+  tags: string[]
+  thumbnail: {url: string, public_id: string}
+  author: ObjectId
+  createdAt: Date
+}
+
+const PostSchema = new Schema<PostModelSchema>(
   {
     title: {
       type: String,
@@ -44,4 +55,4 @@ const PostSchema = new Schema(
 
 const Post = models?.Post || model('Post', PostSchema)
 
-export default Post
+export default Post as Model<PostModelSchema>
