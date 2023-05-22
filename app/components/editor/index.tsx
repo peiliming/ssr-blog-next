@@ -20,6 +20,7 @@ import ActionButton from '@/components/common/ActionButton'
 import ThumbnailSelector from '@/components/editor/ThumbnailSelector'
 
 export interface FinalPost extends SeoResult{
+  id?: string
   title: string
   content: string
   meta: string

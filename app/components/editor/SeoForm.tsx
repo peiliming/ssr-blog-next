@@ -77,7 +77,9 @@ const SeoForm: FC<Props> = ({initialValue, title='', onChange }): JSX.Element =>
           onChange={handleChange}
         ></textarea>
         <p className='absolute bottom-3 right-3 text-primary-dark
-        dark:text-primary text-sm'>{meta.length}/150</p>
+        dark:text-primary text-sm'>
+          {meta ? meta.length : 0}
+        </p>
       </div>
     </div>
   )

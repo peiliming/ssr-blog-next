@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next'
 import cloudinary from '@/lib/cloudinary'
 import formidable from "formidable"
-import {readFile} from '@/lib/utils'
+import { readFile } from '@/lib/utils'
 
 export const config = {
   api: { bodyParser: false },
