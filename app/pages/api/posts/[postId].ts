@@ -20,12 +20,20 @@ const handler: NextApiHandler = (req, res) => {
   }
 }
 
+interface IncomingPost {
+  title: string
+  content: string
+  slug: string
+  meta: string
+  tags: string
+}
+
 const updatePost: NextApiHandler = async (req, res) => {
   const postId = req.query.postId as string
   const post = await Post.findById(postId)
   if(!post) return res.status(400).json({error: 'not found!'})
 
-  const {files, body} = await readFile(req)
+  const {files, body} = await readFile<IncomingPost>(req)
   let tags = []
   if(body.tags) {
     tags = JSON.parse(body.tags as string)
