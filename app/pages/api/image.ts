@@ -25,7 +25,7 @@ const uploadNewImage: NextApiHandler = async (req, res) => {
     const { secure_url: url } = await cloudinary.uploader.upload(
       imageFile.filepath,
       {
-        folder: 'ssr-blogs'
+        folder: 'next-blogs'
       }
     )
 
