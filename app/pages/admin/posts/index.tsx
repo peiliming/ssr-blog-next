@@ -1,45 +1,30 @@
-import { NextPage } from 'next'
+import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import AdminLayout from '@/components/layout/AdminLayout'
 import { useState } from 'react'
 import PostCard from '@/components/common/PostCard'
+import Link from 'next/link'
+import { PostDetail } from '@/utils/types'
 
-interface Props {}
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>
 
-const posts = [
-  {
-    title: 'test test test',
-    slug: 'test',
-    meta: 'test',
-    tags: ['test'],
-    thumbnail: 'test',
-    createdAt: 'Tue Oct 11 2022 14:58:49'
-  },
-  {
-    title: 'test test test',
-    slug: 'test',
-    meta: 'test',
-    tags: ['test'],
-    thumbnail: 'test',
-    createdAt: 'Tue Oct 11 2022 14:58:49'
-  },
-  {
-    title: 'test test test',
-    slug: 'test',
-    meta: 'test',
-    tags: ['test'],
-    thumbnail: 'test',
-    createdAt: 'Tue Oct 11 2022 14:58:49'
-  }
-]
+interface ServerSideResponse {
+  posts: PostDetail[]
+}
 
-const Posts: NextPage<Props> = () => {
+export const getServerSideProps: GetServerSideProps<ServerSideResponse> = async () => {
+
+}
+
+const Posts: NextPage<Props> = ({posts}) => {
   const [postsToRender, setPostsToRender] = useState(posts)
   return (<div>
     <AdminLayout>
       <div className="max-w-4xl mx-auto p-3">
         <div className="grid grid-cols-3 gap-4">
           {postsToRender.map(post => (
-            <PostCard post={post} />
+            <Link key={post.slug} href={'/' + post.slug}>
+              <PostCard key={post.slug} post={post} />
+            </Link>
           ))}
         </div>
       </div>
