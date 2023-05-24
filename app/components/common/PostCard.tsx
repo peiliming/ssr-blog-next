@@ -6,6 +6,8 @@ import Link from 'next/link'
 
 interface Props {
   post: PostDetail
+  busy?: boolean
+  onDeleteClick?(): void
 }
 
 const trimText = (text: string, trimBy: number) => {
@@ -15,7 +17,7 @@ const trimText = (text: string, trimBy: number) => {
   return text.substring(0, trimBy).trim() + '...'
 }
 
-const PostCard: FC<Props> = ({post}): JSX.Element => {
+const PostCard: FC<Props> = ({post, busy, onDeleteClick}): JSX.Element => {
   const { title, slug, meta, tags, createdAt, thumbnail } = post
   return (
     <div
@@ -53,10 +55,19 @@ const PostCard: FC<Props> = ({post}): JSX.Element => {
         </Link>
         <div className='flex justify-end items-center h-8 mt-auto
         space-x-4 text-primary-dark dark:text-primary'>
-          <Link className='hover:underline' href={'/admin/posts/update/' + slug}>
-            編集
-          </Link>
-          <button className='hover:underline'>削除</button>
+          { busy ? (
+            <span className='animate-pulse'>Loading</span>
+          ) : (
+            <>
+              <Link className='hover:underline' href={'/admin/posts/update/' + slug}>
+                編集
+              </Link>
+              <button
+                className='hover:underline'
+                onClick={onDeleteClick}
+              >削除</button>
+            </>
+          )}
         </div>
       </div>
     </div>

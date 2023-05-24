@@ -41,7 +41,7 @@ const Posts: NextPage<Props> = () => {
         <div className="grid grid-cols-3 gap-4">
           {postsToRender.map(post => (
             <Link key={post.slug} href={'/' + post.slug}>
-              <PostCard key={post.slug} post={post} />
+              <PostCard key={post.slug} post={post} busy />
             </Link>
           ))}
         </div>
