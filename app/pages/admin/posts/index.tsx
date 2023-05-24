@@ -11,7 +11,7 @@ const posts = [
     slug: 'test',
     meta: 'test',
     tags: ['test'],
-    thumbnail: 'test',
+    thumbnail: 'https://images.unsplash.com/photo-1664784805210-9fa665e2b7e9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
     createdAt: 'Tue Oct 11 2022 14:58:49'
   },
   {
@@ -19,7 +19,7 @@ const posts = [
     slug: 'test',
     meta: 'test',
     tags: ['test'],
-    thumbnail: 'test',
+    thumbnail: 'https://images.unsplash.com/photo-1664784805210-9fa665e2b7e9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
     createdAt: 'Tue Oct 11 2022 14:58:49'
   },
   {
@@ -27,7 +27,7 @@ const posts = [
     slug: 'test',
     meta: 'test',
     tags: ['test'],
-    thumbnail: 'test',
+    thumbnail: 'https://images.unsplash.com/photo-1664784805210-9fa665e2b7e9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
     createdAt: 'Tue Oct 11 2022 14:58:49'
   }
 ]
