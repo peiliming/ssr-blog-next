@@ -6,6 +6,7 @@ import { readFile } from '@/lib/utils'
 import { postValidationSchema, validateSchema } from '@/lib/validator'
 import cloudinary from '@/lib/cloudinary'
 import formidable from 'formidable'
+import { IncomingPost } from '@/utils/types'
 
 export const config = {
   api: { bodyParse: false }
@@ -20,14 +21,6 @@ const handler: NextApiHandler = (req, res) => {
     default:
       res.status(400).send('Not found!')
   }
-}
-
-interface IncomingPost {
-  title: string
-  content: string
-  slug: string
-  meta: string
-  tags: string
 }
 
 const updatePost: NextApiHandler = async (req, res) => {
