@@ -1,7 +1,7 @@
 // title, content, slug, tags, thumbnail, meta, author, date
 import { Schema, models, model, ObjectId, Model } from 'mongoose'
 
-interface PostModelSchema {
+export interface PostModelSchema {
   title: string
   slug: string
   meta: string
