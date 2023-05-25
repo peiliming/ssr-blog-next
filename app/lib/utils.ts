@@ -24,6 +24,9 @@ export const readFile = <T extends object>(req: NextApiRequest): Promise<Formida
 }
 
 export const readPostsFromDb = async (limit: number, pageNo: number) => {
+  if(!limit || limit > 10) {
+    throw Error('表示件数を10個以下制限している')
+  }
   const skip = limit * pageNo
   await dbConnect()
   const posts = await Post.find().sort({createdAt: 'desc'}).select('-content').skip(skip).limit(limit)
