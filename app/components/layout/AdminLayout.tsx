@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import AdminNav from '@/components/AdminNav'
+import AdminNav from '@/components/common/nav/AdminNav'
 // npm install react-icons --save
 // https://react-icons.github.io/react-icons/
 import { AiOutlineContacts, AiOutlineContainer, AiOutlineDashboard, AiOutlineFileAdd, AiOutlineMail, AiOutlineTeam } from 'react-icons/ai'
