@@ -49,6 +49,7 @@ const Posts: NextPage<Props> = ({posts}) => {
       console.log(error)
     }
   }
+
   return (<div>
     <AdminLayout>
       <InfiniteScrollPosts
